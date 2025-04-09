@@ -1,22 +1,48 @@
-// * Задача 2.
-// Оголоси функцію formatMessage(message, maxLength), яка приймає рядок (параметр message) та перевіряє його довжину
-// відповідно до заданої максимальної довжини (параметр maxLength).
-// Доповни код функції таким чином, що:
-// Якщо довжина рядка дорівнює або менша за maxLength, то функція повертає початковий рядок без змін.
-// Якщо довжина перевищує maxLength, то функція обрізає рядок до maxLength символів,
-// додає трикрапку "..." в кінці та повертає обрізану версію.
+// * Задача 2. Розрахунок калорій
+// Напиши функцію calcAverageCalories(days), яка повертає середньодобове значення кількості калорій,
+// які спортсмен споживав протягом тижня. Функція очікує один параметр:
+// days — масив об’єктів. Кожен об’єкт описує день тижня та кількість калорій calories, спожитих спортсменом, у цей день.
 
-function formatMessage(message, maxLength) {
-  return message.length <= maxLength
-    ? message
-    : message.slice(0, maxLength) + '...';
+function calcAverageCalories(days) {
+  let countCalories = 0;
+  let countDays = 0;
+  for (const day of days) {
+    if ('calories' in day && typeof day.calories === 'number') {
+      countDays++;
+      countCalories += day.calories;
+    }
+  }
+  if (countDays === 0) {
+    return 0;
+  }
+  return countCalories / countDays;
 }
 
 console.group('task-2');
-console.log(formatMessage('Curabitur ligula sapien', 16)); // "Curabitur ligula..."
-console.log(formatMessage('Curabitur ligula sapien', 23)); // "Curabitur ligula sapien"
-console.log(formatMessage('Vestibulum facilisis purus nec', 20)); // "Vestibulum facilisis..."
-console.log(formatMessage('Vestibulum facilisis purus nec', 30)); // "Vestibulum facilisis purus nec"
-console.log(formatMessage('Nunc sed turpis a felis in nunc fringilla', 15)); // "Nunc sed turpis..."
-console.log(formatMessage('Nunc sed turpis a felis in nunc fringilla', 41)); // "Nunc sed turpis a felis in nunc fringilla"
+console.log(
+  calcAverageCalories([
+    { day: 'monday', calories: 3010 },
+    { day: 'tuesday', calories: 3200 },
+    { day: 'wednesday', calories: 3120 },
+    { day: 'thursday', calories: 2900 },
+    { day: 'friday', calories: 3450 },
+    { day: 'saturday', calories: 3280 },
+    { day: 'sunday', calories: 3300 },
+  ]),
+); // 3180
+
+console.log(
+  calcAverageCalories([
+    { day: 'monday', calories: 2040 },
+    { day: 'tuesday', calories: 2270 },
+    { day: 'wednesday', calories: 2420 },
+    { day: 'thursday', calories: 1900 },
+    { day: 'friday', calories: 2370 },
+    { day: 'saturday', calories: 2280 },
+    { day: 'sunday', calories: 2610 },
+  ]),
+); // 2270
+
+console.log(calcAverageCalories([])); // 0
+
 console.groupEnd();

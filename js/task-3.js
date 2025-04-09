@@ -1,22 +1,40 @@
-// * Задача 3.
-// Функція checkForSpam(message) приймає рядок (параметр message), перевіряє його на вміст заборонених слів
-// spam і sale, і повертає результат перевірки.
-// Слова в рядку параметра message можуть бути в довільному регістрі, наприклад SPAM або sAlE.
-// Доповни код функції таким чином, що:
-// Якщо знайдено заборонене слово (spam або sale), то функція повертає буль true
-// Якщо в рядку відсутні заборонені слова, функція повертає буль false
+// * Задача 3. Профіль гравця
+// Об’єкт profile описує профіль користувача на ігровій платформі.
+// У його властивостях зберігається ім’я профілю username та кількість активних годин playTime, проведених у грі.
+// const profile = {
+//     username: "Jacob",
+//   playTime: 300,
+// };
+// Доповни об’єкт profile методами для роботи з його властивостями.
+// Метод changeUsername(newName) повинен приймати рядок (нове ім’я) в параметр newName
+// та змінювати значення властивості username на нове. Нічого не повертає.
+// Метод updatePlayTime(hours) повинен приймати число (кількість годин) у параметр hours
+// та збільшити на нього значення властивості playTime. Нічого не повертає.
+// Метод getInfo() має повертати рядок формату <Username> has <amount> active hours!,
+// де <Username> — це ім’я профілю, а <amount> — кількість ігрових годин.
 
-function checkForSpam(message) {
-  const lowerCaseMessage = message.toLowerCase();
-  return lowerCaseMessage.includes('sale') || lowerCaseMessage.includes('spam');
-}
+const profile = {
+  username: 'Jacob',
+  playTime: 300,
+  changeUsername(newName) {
+    this.username = newName;
+  },
+  updatePlayTime(hours) {
+    this.playTime += hours;
+  },
+  getInfo() {
+    return `${this.username} has ${this.playTime} active hours!`;
+  },
+};
 
 console.group('task-3');
-console.log(checkForSpam('Latest technology news')); // false
-console.log(checkForSpam('JavaScript weekly newsletter')); // false
-console.log(checkForSpam('Get best sale offers now!')); // true
-console.log(checkForSpam('Amazing SalE, only tonight!')); // true
-console.log(checkForSpam('Trust me, this is not a spam message')); // true
-console.log(checkForSpam('Get rid of sPaM emails. Our book in on sale!')); // true
-console.log(checkForSpam('[SPAM] How to earn fast money?')); // true
+
+console.log(profile.getInfo()); // "Jacob has 300 active hours!"
+
+profile.changeUsername('Marco');
+console.log(profile.getInfo()); // "Marco has 300 active hours!"
+
+profile.updatePlayTime(20);
+console.log(profile.getInfo()); // "Marco has 320 active hours!"
+
 console.groupEnd();
